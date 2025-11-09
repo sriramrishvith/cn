@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdbool.h>
+#define MAX_FRAMES 10
+void transmit_frame(int frame) {
+    printf("Frame %d has been transmitted.\n", frame);
+}
+int main() {
+    int total_frames, window_size;
+    bool ack_received[MAX_FRAMES] = {false};
+    int sent_start = 0, sent_end = 0; // Tracks window positions
+    int ack;
+    // Input for total frames and window size
+    printf("Enter the total number of frames to be sent (max %d): ", MAX_FRAMES);
+    scanf("%d", &total_frames);
+    printf("Enter the window size: ");
+    scanf("%d", &window_size);
+    if (window_size <= 0 || total_frames <= 0 || window_size > total_frames) {
+        printf("Invalid window size or number of frames.\n");
+        return 1;
+    }
+    // Initial transmission of the first window
+    for (int i = 0; i < window_size && i < total_frames; i++) {
+        transmit_frame(i);
+        sent_end++;
+    }
+    while (sent_start < total_frames) {
+        // Receive acknowledgments for the current window
+        printf("\nPlease enter the acknowledgments received (enter -1 to finish):\n");
+        for (int i = sent_start; i < sent_end; i++) {
+            if (!ack_received[i]) {
+                printf("\nEnter acknowledgment for frame %d: ", i);
+                scanf("%d", &ack);
+                if (ack == -1) {
+                    printf("No acknowledgment for frame %d. Retransmitting.\n", i);
+                    transmit_frame(i);
+                    printf("Enter acknowledgment for retransmitted frame %d: ", i);
+                    scanf("%d", &ack);
+                }
+                if (ack == i) {
+                    ack_received[ack] = true;
+                    printf("Acknowledgment %d received.\n", ack);
+                    // Transmit next frame in sequence if within total frames
+                    if (sent_end < total_frames) {
+                        transmit_frame(sent_end);
+                        sent_end++;
+                    }
+                } else {
+                    printf("Invalid acknowledgment.\n");
+                }
+            }
+        }
+        // Slide the window
+        while (sent_start < total_frames && ack_received[sent_start]) {
+            sent_start++;
+        }
+    }
+    printf("All frames have been transmitted and acknowledged.\n");
+    return 0;
+}
