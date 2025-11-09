@@ -1,0 +1,24 @@
+- NAT Static Routing ----
+Router#en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int fa0/0
+Router(config-if)#ip add 10.0.0.1 255.0.0.0
+Router(config-if)#no shut
+Router(config-if)#ip nat inside
+Router(config-if)#int fa1/0
+Router(config-if)#ip add 20.0.0.1 255.0.0.0
+Router(config-if)#no shut
+Router(config-if)#ip nat outside
+Router(config-if)#exit
+Router(config)#ip nat inside source static 10.0.0.2 200.150.50.25
+Router(config)#end
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#sh ip nat translations
+Pro  Inside global     Inside local       Outside local      Outside global
+---  200.150.50.25     10.0.0.1           ---                ---
+
+Router#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
