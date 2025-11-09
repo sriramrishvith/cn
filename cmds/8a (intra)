@@ -1,0 +1,33 @@
+-------- INTRA -------------
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name project1
+Switch(config-vlan)#int f0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#int f2/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#int f1/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 10
+
+Switch(config-if)#vlan 20
+Switch(config-vlan)#int f3/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#int f6/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+
+Switch(config-if)#vlan 30
+Switch(config-vlan)#int f7/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#int f8/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#end
+Switch#
