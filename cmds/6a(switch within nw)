@@ -1,0 +1,22 @@
+Task 6a
+
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#hostname sh
+sh(config)#banner motd $
+Enter TEXT message.  End with the character '$'.
+Welcome to CN Lab
+$
+
+sh(config)#line con 0
+sh(config-line)#password griet123
+sh(config-line)#login
+sh(config-line)#exit
+sh(config)#enable secret rishi
+sh(config)#service password-encryption
+sh(config)#exit
+sh#
+%SYS-5-CONFIG_I: Configured from console by console
+
+sh#exit
