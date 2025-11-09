@@ -1,0 +1,58 @@
+Task 8b
+
+router -1 
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int fa0/0
+Router(config-if)#ip add 10.0.0.1 255.0.0.0
+Router(config-if)#no shut
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#int se2/0
+Router(config-if)#ip add 20.0.0.1 255.0.0.0
+Router(config-if)#no shut
+
+%LINK-5-CHANGED: Interface Serial2/0, changed state to down
+Router(config-if)#exit
+Router(config)#
+Router(config)#
+%LINK-5-CHANGED: Interface Serial2/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial2/0, changed state to up
+
+Router(config)#ip route 30.0.0.0 255.0.0.0 20.0.0.2
+Router(config)#
+
+
+
+router -2
+
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int fa0/0
+Router(config-if)#ip add 30.0.0.1 255.0.0.0
+Router(config-if)#no shut
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#int se3/0
+Router(config-if)#ip add 20.0.0.2 255.0.0.0
+Router(config-if)#no shut
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface Serial3/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface Serial3/0, changed state to up
+
+Router(config-if)#exit
+Router(config)#ip route 10.0.0.0 255.0.0.0 20.0.0.1
+Router(config)#
