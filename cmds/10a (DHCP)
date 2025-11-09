@@ -1,0 +1,59 @@
+Task 10 (DHCP)
+
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#ip dhcp pool lan1
+Router(dhcp-config)#network 10.0.0.0 255.0.0.0
+Router(dhcp-config)#default-router 10.0.0.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(dhcp-config)#
+Router(dhcp-config)#ip dhcp pool lan2
+Router(dhcp-config)#network 20.0.0.0 255.0.0.0
+Router(dhcp-config)#default-router 20.0.0.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(dhcp-config)#
+Router(dhcp-config)#ip dhcp excluded-address 10.0.0.1
+Router(config)#ip dhcp excluded-address 20.0.0.1
+Router(config)#end
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#wr memory
+Building configuration...
+[OK]
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#int fa0/0
+Router(config-if)#ip add 10.0.0.1 255.0.0.0
+Router(config-if)#no shut
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet0/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+
+Router(config-if)#int fa1/0
+Router(config-if)#ip add 20.0.0.1 255.0.0.0
+Router(config-if)#no shut
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface FastEthernet1/0, changed state to up
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet1/0, changed state to up
+
+Router(config-if)#ex
+Router(config)#ex
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#sh ip dhcp binding
+IP address       Client-ID/              Lease expiration        Type
+                 Hardware address
+Router#
+Router#
+Router#sh ip dhcp binding
+IP address       Client-ID/              Lease expiration        Type
+                 Hardware address
+10.0.0.2         0003.E4B1.EEBC           --                     Automatic
+20.0.0.2         0004.9AB9.555A           --                     Automatic
