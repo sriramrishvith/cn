@@ -1,0 +1,49 @@
+1.SERVER 
+  ->name-radius server 
+      i/p- 192.168.0.10
+      default gateway-192.168.0.1
+  ->service 
+      ->n/w config
+          AAA-on
+          client name-home
+          secret - password
+          client IP-192.168.0.1
+      ->user setup
+          uname-fan
+          pwd-12345
+          add
+
+          uname-door
+          pwd-54321
+          add
+  ->IOT -on
+  
+2.PC
+  dhcp
+  
+3.WIRELESS ROUTER
+  ->GUI
+      ->wireless
+                ->basic wireless
+                      SSID - home
+                ->wireless security
+                      mode - WPA2 entp
+                      radius server - 192.168.0.10
+                      secret - password
+
+4.FAN & DOOR
+  ->config
+      ->IOT server
+          ->remote server
+              server add - 192.168.0.10
+              uname - admin
+              pwd - admin
+              connect
+      ->Wireless 0
+          authentication - WPA2 
+          SSID - home
+          uid - fan
+          pwd - 12345
+          
+          
+  
