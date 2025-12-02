@@ -71,7 +71,7 @@ Router#
 
 
 
-Router(20.0.0.5    def gtw-20.0.0.1)
+SERVER (20.0.0.5    def gtw-20.0.0.1)
 PC(def gtw -10.0.0.1)
 Router>en
 Router#conf t
